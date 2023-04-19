@@ -2,7 +2,17 @@ import './haberler.less'
 // Haberleri üretmek için aşağıdaki data kullanılacak. Önce inceleyin sonra 94. satıra geçin.
 // OPSİYONEL: Kendinizi maceracı hissediyorsanız, bu verileri farklı bir modülden dışa aktarmaya çalışın ve buraya aktarın.
 // ES6 Modülleri ile ilgili bilgi için bakabilirsiniz: https://exploringjs.com/es6/ch_modules.html#sec_basics-of-es6-modules
+
 const data = [
+  {
+    baslik: 'Seçim Gündemi"',
+    tarih: '19 Nisan 2023',
+    ilkParagraf: `YSK, kesin aday listelerini onayladı! İşte seçime girecek parti ve bağımsız aday sayısı`,
+
+    ikinciParagraf: `YSK, 24 siyasi parti ile 151 bağımsız adayın gösterildiği milletvekili kesin aday listesini onayladı. Listenin Resmi Gazete'de yayınlanmasının ardından oy pusulalarının basımına geçilecek`,
+
+    ucuncuParagraf: `Siyasi partiler 9 Nisan'da Milletvekili aday listelerini YSK'ya sunmuştu. YSK, 11 Nisan'a kadar listelerdeki eksikliğin tamamlanması için süre vermiş, 15 Nisan'da da geçici aday listesini açıklamıştı. YSK, 14 Mayıs 2023 Pazar günü yapılacak 28. Dönem Milletvekili Genel Seçimi'ne ilişkin kesin aday listesini internet sitesinde açıkladı. Buna göre, 24 siyasi parti ile 151 bağımsız aday seçime girecek.`
+  },
   {
     baslik: 'Workintech Öğrencileri: "Bizler en iyi öğrencileriz!"',
     tarih: '11 Kasım 2022',
@@ -90,6 +100,59 @@ const data = [
   }
 ];
 
+const haberYapici = function (dataBaseArr) {
+
+  const container = document.createElement("div");
+  container.className = "article";
+
+  const h2JS = document.createElement("h2");
+  h2JS.textContent = dataBaseArr.baslik
+  container.appendChild(h2JS);
+
+  const baslikJS = document.createElement("p");
+  baslikJS.className = "tarih";
+  baslikJS.textContent = dataBaseArr.tarih
+  container.appendChild(baslikJS);
+
+  const pjsBir = document.createElement("p");
+  pjsBir.textContent = dataBaseArr.ilkParagraf
+  container.appendChild(pjsBir);
+
+  const pjsIki = document.createElement("p");
+  pjsIki.textContent = dataBaseArr.ikinciParagraf
+  container.appendChild(pjsIki);
+
+  const pjsUc = document.createElement("p");
+  pjsUc.textContent = dataBaseArr.ucuncuParagraf
+  container.appendChild(pjsUc);
+
+  const buttonjs = document.createElement("span");
+  buttonjs.style.fontSize = "40px";
+  buttonjs.className = "expandButton";
+  buttonjs.textContent = "+";
+
+  buttonjs.addEventListener("click", ()=>{
+    container.classList.toggle("article-open");
+  });
+  container.appendChild(buttonjs);
+
+return container;
+
+};
+
+const articleSection = document.querySelector(".articles");
+
+data.forEach((item) => {
+  articleSection.append(haberYapici(item));
+});
+
+
+// data.forEach((haber)=>{
+// const articleDOM = haberYapici(haber);
+// const articleSection = document.querySelector(".articles");
+// articleSection.appendChild(articleDOM);
+// });
+
 /*
   Adım 1: Haber oluşturmak için 'haberYapici' adında bir bileşen(component) oluşturun.
   Bileşeniniz, argümanı haberleri içeren dizi olarak alan bir fonksiyon olacak,
@@ -99,7 +162,7 @@ const data = [
     <h2>{haber başlığı}</h2>
     <p class="tarih">{haber tarihi}</p>
 
-    {üç ayrı paragraf elementi}
+    {üç ayrı paragraf elementi} 
 
     <span class="expandButton">+</span>
   </div>
@@ -115,3 +178,4 @@ const data = [
   Adım 5: Veri dizisine yeni haber nesnesi eklemeyi deneyin. Diğer verilerle aynı yapıda olmasına dikkat edin.
   Eklediğiniz yeni haberi görmek için sayfayı yenileyin.
 */
+
